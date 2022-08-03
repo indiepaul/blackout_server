@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_state_states",
+  "info": {
+    "displayName": "State",
+    "icon": "adjust",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "group": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::group.group"
+    },
+    "status": {
+      "type": "boolean",
+      "required": true
+    }
+  }
+}

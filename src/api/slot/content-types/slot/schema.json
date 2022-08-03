@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "slots",
+  "info": {
+    "singularName": "slot",
+    "pluralName": "slots",
+    "displayName": "Slot",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "state": {
+      "displayName": "State",
+      "type": "component",
+      "repeatable": true,
+      "component": "state.state"
+    },
+    "time_slot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::time-slot.time-slot"
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

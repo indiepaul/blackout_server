@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "nomads",
+  "info": {
+    "singularName": "nomad",
+    "pluralName": "nomads",
+    "displayName": "Nomad"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::location.location"
+    }
+  }
+}
