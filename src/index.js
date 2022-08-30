@@ -1,5 +1,7 @@
 'use strict';
 
+const { format } = require('date-fns')
+
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -10,12 +12,41 @@ module.exports = {
    register({ strapi }) {
     const extension = ({ nexus }) => ({      
       types: [
+        nexus.objectType({
+          name: 'Contact',
+          definition(t) {
+            t.id('id')
+            t.string('name')
+            t.string('phone')
+            t.field('location', {
+              type: 'ContactLocation'
+            })
+            t.string('groupId')
+            t.date('lastActive')
+          },
+        }),
+        nexus.objectType({
+          name: 'ContactLocation',
+          definition(t) {
+            t.id('id')
+            t.string('name')
+            t.string('district')
+            t.string('region')
+            t.string('groupId')
+          },
+        }),
         nexus.queryType({
           definition(t) {
             t.field('nextBlackout', {
               type: 'SlotEntityResponse',
               args: {
                 group: nexus.nonNull(nexus.idArg()),
+              },
+            }),
+            t.field('contacts', {
+              type: nexus.list('Contact'),
+              args: {
+                numbers: nexus.list('String'),
               },
             }),
             t.field('availableDays', {
@@ -64,7 +95,31 @@ module.exports = {
               if(value == null) {
                 return null;
               }
-              return { value, info: { args: {}, resourceUID: value.id } };
+              return { value, info: { args: {}, resourceUID: 'api::slot.slot' } };
+            },
+          },
+          contacts: {
+            async resolve( _, args ) {
+              const res = await strapi.entityService.findMany('api::nomad.nomad', {
+                filters: {
+                  phone: args.numbers,
+                },
+                populate: ['location.group','location.district.region']
+              });
+              return res.map((nomad) => {
+                return {
+                  id: nomad.id,
+                  name: nomad.name,
+                  phone: nomad.phone,
+                  location: {
+                    name: nomad.hideLocation ? null : nomad.location.name,
+                    district: nomad.location.district.name,
+                    region: nomad.location.district.region.name,
+                    groupId: nomad.location.group.id,
+                  },
+                  lastActive: nomad.hideActivity ? null : format(new Date(nomad.lastActive), 'yyyy-MM-dd')
+                }
+              })
             },
           },
           availableDays: {
