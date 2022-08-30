@@ -4,7 +4,8 @@
   "info": {
     "singularName": "nomad",
     "pluralName": "nomads",
-    "displayName": "Nomad"
+    "displayName": "Nomad",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -22,6 +23,25 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::location.location"
+    },
+    "lastActive": {
+      "type": "datetime"
+    },
+    "hideLocation": {
+      "type": "boolean",
+      "default": false,
+      "private": true
+    },
+    "hideActivity": {
+      "type": "boolean",
+      "default": false,
+      "private": true
+    },
+    "places": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::place.place",
+      "mappedBy": "nomad"
     }
   }
 }
