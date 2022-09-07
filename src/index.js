@@ -35,6 +35,25 @@ module.exports = {
             t.string('groupId')
           },
         }),
+        nexus.mutationType({
+          definition(t) {
+            t.field('requestPowerUp', {
+              type: 'PowerUpEntityResponse',
+              args: {
+                data: nexus.inputObjectType({
+                  name: 'PowerUpRequest',
+                  definition(t) {
+                    t.nonNull.id('nomad'),
+                    t.nonNull.id('contact'),
+                    t.nonNull.id('slot'),
+                    t.nonNull.string('name'),
+                    t.string('request_note')
+                  },
+                }),
+              }
+            })
+          }
+        }),
         nexus.queryType({
           definition(t) {
             t.field('nextBlackout', {
@@ -56,6 +75,37 @@ module.exports = {
         }),
       ],
       resolvers: {
+        Mutation: {
+          requestPowerUp: {
+            async resolve( _,args ) {
+              const value = await strapi.entityService
+              .create('api::power-up.power-up', 
+              {
+                data: args.data,
+                populate: {
+                  nomad: true, 
+                  slot: {
+                    populate: { time_slot: true }
+                  }
+                },
+              })
+              const date = format(new Date(value.slot.date), 'do MMMM')
+              const notif = await strapi.entityService
+              .create('api::notification.notification', {
+                data: {
+                  type: "power-up",
+                  nomad: args.data.contact,
+                  message: `${args.data.name} is requesting Power Up on ${date} at ${value.slot.time_slot.start.substr(0,5)}`,
+                  meta: `{ id: ${value.id} }`
+                }
+              })
+              if(value == null) {
+                return null;
+              }
+              return { value, info: { args: {}, resourceUID: 'api::power-up.power-up' } };
+            }
+          }
+        },
         Query: {
           nextBlackout: {
             async resolve( _, args ) {

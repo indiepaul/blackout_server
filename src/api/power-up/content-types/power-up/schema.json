@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "power_ups",
+  "info": {
+    "singularName": "power-up",
+    "pluralName": "power-ups",
+    "displayName": "Power Up",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nomad": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::nomad.nomad"
+    },
+    "contact": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::nomad.nomad"
+    },
+    "slot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::slot.slot"
+    },
+    "request_note": {
+      "type": "string"
+    },
+    "response": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "cancelled",
+        "accepted",
+        "rejected",
+        "reschedule"
+      ],
+      "default": "pending"
+    },
+    "response_note": {
+      "type": "string"
+    }
+  }
+}

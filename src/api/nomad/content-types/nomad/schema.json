@@ -42,6 +42,12 @@
       "relation": "oneToMany",
       "target": "api::place.place",
       "mappedBy": "nomad"
+    },
+    "notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification.notification",
+      "mappedBy": "nomad"
     }
   }
 }

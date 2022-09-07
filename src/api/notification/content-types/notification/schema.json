@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notifications",
+  "info": {
+    "singularName": "notification",
+    "pluralName": "notifications",
+    "displayName": "Notification"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "message": {
+      "type": "string"
+    },
+    "nomad": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::nomad.nomad",
+      "inversedBy": "notifications"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "power-up",
+        "response"
+      ]
+    },
+    "meta": {
+      "type": "string"
+    },
+    "read_at": {
+      "type": "datetime"
+    }
+  }
+}
