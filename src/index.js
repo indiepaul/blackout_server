@@ -96,7 +96,7 @@ module.exports = {
                   type: "power-up",
                   nomad: args.data.contact,
                   message: `${args.data.name} is requesting Power Up on ${date} at ${value.slot.time_slot.start.substr(0,5)}`,
-                  meta: `{ id: ${value.id} }`
+                  meta: `{ "id": "${value.id}" }`
                 }
               })
               if(value == null) {
