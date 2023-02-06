@@ -11,10 +11,10 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@strapi/plugin-graphql": "^4.1.12",
-    "@strapi/plugin-i18n": "4.1.12",
-    "@strapi/plugin-users-permissions": "4.1.12",
-    "@strapi/strapi": "4.1.12",
+    "@strapi/plugin-graphql": "^4.6.0",
+    "@strapi/strapi": "4.6.0", 
+    "@strapi/plugin-users-permissions": "4.6.0",
+    "@strapi/plugin-i18n": "4.6.0",
     "better-sqlite3": "7.4.6"
   },
   "author": {
@@ -24,7 +24,7 @@
     "uuid": "d310e639-8a9b-4d09-852d-8e22cbd3090c"
   },
   "engines": {
-    "node": ">=12.x.x <=16.x.x",
+    "node": ">=12.x.x <=18.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
