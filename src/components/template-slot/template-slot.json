@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_template_slot_template_slots",
+  "info": {
+    "displayName": "TemplateSlot",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "time_slot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::time-slot.time-slot"
+    },
+    "state": {
+      "type": "component",
+      "repeatable": true,
+      "component": "state.state"
+    }
+  }
+}
